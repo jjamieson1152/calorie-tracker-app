@@ -1,9 +1,10 @@
 import './App.css';
+import AppBar from './components/AppBar/AppBar';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Calorie Tracker</h1>
+      <AppBar />
     </div>
   );
 }
