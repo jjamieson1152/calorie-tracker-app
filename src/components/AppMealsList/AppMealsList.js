@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
 
-const AppMealsList = () => {
+const AppMealsList = ({ meals }) => {
   return (
-    <div>AppMealsList</div>
-  )
-}
+    <div className="app__meals__container__wrapper">
+      {meals.map((meal, index) => (
+        <div key={index} className="app__meals__container__wrapper__inner">
+          <div>{`${meal.mealName} : ${meal.calories}`}</div>
+          <div>
+            <button className="btn__delete__meal">Delete</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default AppMealsList;
