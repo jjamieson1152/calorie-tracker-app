@@ -1,8 +1,11 @@
 import React from 'react'
 
-const AppModal = () => {
+const AppModal = ({ setOpenModal }) => {
   return (
-    <div>AppModal</div>
+    <div className='app__modal'>
+      <h3>Calories Must Be Greater Than 0 and Meal Name Cannot Be Blank</h3>
+      <button className='btn__close__modal' onClick={() => setOpenModal(false)}>Close</button>
+    </div>
   )
 }
 
