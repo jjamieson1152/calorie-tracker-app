@@ -40,12 +40,16 @@ const App = () => {
     setMeals(newMeals);
   };
 
+  const deleteAllMeals = () => {
+    setMeals([]);
+  }
+
   return (
     <div className="App">
       <AppBar />
       { openModal ? <AppModal setOpenModal={setOpenModal}/> : ""}
       <AppControlsCounter />
-      <AppControlsDelete />
+      <AppControlsDelete deleteAllMeals={deleteAllMeals}/>
       <AppControlsInputs
         addMealsHandler={addMealsHandler}
         mealName={mealName}
