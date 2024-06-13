@@ -44,11 +44,13 @@ const App = () => {
     setMeals([]);
   }
 
+  const total = meals.map((meal) => meal.calories).reduce((acc, value) => acc + +value, 0);
+
   return (
     <div className="App">
       <AppBar />
       { openModal ? <AppModal setOpenModal={setOpenModal}/> : ""}
-      <AppControlsCounter />
+      <AppControlsCounter total={total}/>
       <AppControlsDelete deleteAllMeals={deleteAllMeals}/>
       <AppControlsInputs
         addMealsHandler={addMealsHandler}
