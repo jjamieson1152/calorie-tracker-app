@@ -6,12 +6,14 @@ import AppControlsDelete from "./components/AppControls/AppControlsDelete";
 import AppControlsInputs from "./components/AppControls/AppControlsInputs";
 import AppMealsList from "./components/AppMealsList/AppMealsList";
 import AppModal from "./components/AppModal/AppModal";
+import AppMealsFilter from "./components/AppMealsFilter/AppMealsFilter";
 
 const App = () => {
   const [meals, setMeals] = useState([]);
   const [mealName, setMealName] = useState("");
   const [calories, setCalories] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const addMealsHandler = () => {
     const oldMeals = [...meals];
@@ -42,16 +44,18 @@ const App = () => {
 
   const deleteAllMeals = () => {
     setMeals([]);
-  }
+  };
 
-  const total = meals.map((meal) => meal.calories).reduce((acc, value) => acc + +value, 0);
+  const total = meals
+    .map((meal) => meal.calories)
+    .reduce((acc, value) => acc + +value, 0);
 
   return (
     <div className="App">
       <AppBar />
-      { openModal ? <AppModal setOpenModal={setOpenModal}/> : ""}
-      <AppControlsCounter total={total}/>
-      <AppControlsDelete deleteAllMeals={deleteAllMeals}/>
+      {openModal ? <AppModal setOpenModal={setOpenModal} /> : ""}
+      <AppControlsCounter total={total} />
+      <AppControlsDelete deleteAllMeals={deleteAllMeals} />
       <AppControlsInputs
         addMealsHandler={addMealsHandler}
         mealName={mealName}
@@ -61,6 +65,10 @@ const App = () => {
       />
 
       <div className="app__meals__container">
+        <AppMealsFilter
+          selectedFilter={selectedFilter}
+          setSelectedFilter={setSelectedFilter}
+        />
         <AppMealsList meals={meals} deleteMealHandler={deleteMealHandler} />
       </div>
     </div>
