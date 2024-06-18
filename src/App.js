@@ -16,7 +16,7 @@ const App = () => {
   const [selectedFilter, setSelectedFilter] = useState("");
 
   const addMealsHandler = () => {
-    const oldMeals = [...meals];
+    const oldMeals = meals ? [...meals] : [];
     const meal = {
       mealName,
       calories,
@@ -29,6 +29,7 @@ const App = () => {
       setOpenModal(true);
     } else {
       setMeals(newMeals);
+      localStorage.setItem("meals", JSON.stringify(newMeals));
     }
 
     setMealName("");
@@ -40,15 +41,19 @@ const App = () => {
     const newMeals = oldMeals.filter((meal) => meal.id !== id);
 
     setMeals(newMeals);
+    localStorage.setItem("meals", JSON.stringify(newMeals));
   };
 
   const deleteAllMeals = () => {
     setMeals([]);
+    localStorage.clear();
   };
 
-  const total = meals
-    .map((meal) => meal.calories)
-    .reduce((acc, value) => acc + +value, 0);
+  const total = meals !== null 
+    ? meals
+      .map((meal) => meal.calories)
+      .reduce((acc, value) => acc + +value, 0)
+    : 0;
 
   useEffect(() => {
     const oldState = [...meals];
@@ -63,6 +68,11 @@ const App = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilter]);
+
+  useEffect(() => {
+    const localStorageMeals = JSON.parse(localStorage.getItem("meals"));
+    setMeals(localStorageMeals);
+  }, [setMeals]);
 
   return (
     <div className="App">
