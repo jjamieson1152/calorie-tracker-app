@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import AppBar from "./components/AppBar/AppBar";
 import AppControlsCounter from "./components/AppControls/AppControlsCounter";
 import AppControlsDelete from "./components/AppControls/AppControlsDelete";
@@ -7,6 +6,7 @@ import AppControlsInputs from "./components/AppControls/AppControlsInputs";
 import AppMealsList from "./components/AppMealsList/AppMealsList";
 import AppModal from "./components/AppModal/AppModal";
 import AppMealsFilter from "./components/AppMealsFilter/AppMealsFilter";
+import "./App.css";
 
 const App = () => {
   const [meals, setMeals] = useState([]);
@@ -49,6 +49,20 @@ const App = () => {
   const total = meals
     .map((meal) => meal.calories)
     .reduce((acc, value) => acc + +value, 0);
+
+  useEffect(() => {
+    const oldState = [...meals];
+
+    if (selectedFilter === "Ascending") {
+      const ascendingMeals = oldState.sort((a, b) => a.calories - b.calories);
+      setMeals(ascendingMeals);
+    } else if (selectedFilter === "Descending") {
+      const descendingMeals = oldState.sort((a, b) => b.calories - a.calories);
+      setMeals(descendingMeals);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilter]);
 
   return (
     <div className="App">
